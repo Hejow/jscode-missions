@@ -6,6 +6,7 @@ import jscode.backend.module.post.presentation.dtos.request.PostRequest;
 import jscode.backend.module.post.presentation.dtos.response.PostResponse;
 import jscode.backend.module.post.presentation.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
+@Validated
 @RestController
 @RequestMapping("/posts")
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class PostController {
 
     @ResponseStatus(OK)
     @GetMapping("/search")
-    public ApiResponse<List<PostResponse>> search(@RequestParam final String keyword) {
+    public ApiResponse<List<PostResponse>> search(@RequestParam @NotBlank @Min(1) final String keyword) {
         List<PostResponse> responses = postService.searchWithKeyword(keyword);
         return ApiResponse.success(responses);
     }

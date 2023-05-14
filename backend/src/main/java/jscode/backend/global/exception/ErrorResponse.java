@@ -25,4 +25,10 @@ public class ErrorResponse {
         this.errorCode = information.toString();
         this.message = information.getMessage();
     }
+
+    public ErrorResponse(ErrorInformation information, String message) {
+        this.httpStatus = information.getHttpStatus();
+        this.errorCode = information.toString();
+        this.message = message;
+    }
 }
